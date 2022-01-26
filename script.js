@@ -1,31 +1,26 @@
 let board = [];
 
+function displayBoard() {
+    let grid = document.querySelector(".grid");
 
+    for (i = 0; i < 9; i++) {
+        board[i] = null;
+        let boxElement = document.createElement('div');
+        boxElement.classList.add('cell');
+        boxElement.setAttribute('id', `box${i}`);
+        grid.appendChild(boxElement);
 
-//display board
-function displayBoard(){
-let grid = document.querySelector(".grid");
-
-for (i = 0; i < 9; i++) {
-    board[i] = null;
-    let boxElement = document.createElement('div');
-    boxElement.classList.add('cell');
-    boxElement.setAttribute('id', `box${i}`);
-    grid.appendChild(boxElement);
-    
-}
+    }
 }
 
-// board empty  
 function clearBoard() {
-let cellList = document.querySelectorAll('.cell');
-cellList.forEach(cell => {
-    cell.remove();
-});
-displayBoard();
+    let cellList = document.querySelectorAll('.cell');
+    cellList.forEach(cell => {
+        cell.remove();
+    });
+    displayBoard();
 }
 
-//person factory
 const playerFactory = (playerName,sign) => {
     return {playerName, sign}
 };
@@ -45,10 +40,10 @@ displayBoard();
 
 // board cells select
 function gamePlay() {
-const cells = document.querySelectorAll(".cell");
-cells.forEach(cell => {
-    cell.addEventListener("click", () => markEntry(cell));
-});
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => {
+        cell.addEventListener("click", () => markEntry(cell));
+    });
 }
 gamePlay();
 function markEntry(c) {
@@ -63,6 +58,7 @@ function markEntry(c) {
 
 
         winCheck();
+        tieCheck();
         if (currentPlayer === playerX){
             currentPlayer = playerO;
         } else {
@@ -75,7 +71,21 @@ function markEntry(c) {
 }
 
 
-
+function tieCheck() {
+    let tie = true;
+    board.forEach(cell => {
+        if(cell){
+            tie *= true;
+        } else {
+            tie *= false;
+        }
+    });
+    if(tie){
+        console.log('tie');
+        clearBoard();
+        gamePlay();
+    }
+}
 
 // win check
 function winCheck() {

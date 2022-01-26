@@ -1,0 +1,22 @@
+.grid {
+    display: flex;                      
+    flex-wrap: wrap;                    
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+    height: 170px;
+    width: 170px;
+    background-color: rgb(8, 188, 248);
+    
+  }
+  .cell {
+    flex: 0 0 30%;
+    height: 50px;
+    background-color: white;
+    margin-bottom: 2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

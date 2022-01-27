@@ -14,6 +14,43 @@ h1 {
     margin: 20px 0 40px 0;
 }
 
+.playerInput {
+    display: flex;
+    margin: 20px 0 40px 0;
+    width: 350px;
+    justify-content: space-between;
+    color: whitesmoke;
+}
+
+#X, #O {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.winPopUp{
+    color: #ffff00;
+}
+
+.tiePopUp{
+    color: #FD0000;
+}
+
+.winPopUp, .tiePopUp {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding: 20px;
+    min-height: 50px;
+    min-width: 200px;
+    font-size: 40px;
+    border-radius: 20px;
+    border: 2px solid #ffff00;
+}
+
 .grid {
     display: flex;                      
     flex-wrap: wrap;   

@@ -1,11 +1,25 @@
 const gameInit = (function(){
     const playerFactory = (playerName, sign) => {
-        return { playerName, sign }
+        function appenderName() {
+            let playerElement = document.getElementById(sign);
+            let playerDiv = document.createElement('div');
+            playerDiv.classList.add('name')
+            playerDiv.append(playerName);
+            playerElement.appendChild(playerDiv);
+        }
+        function removeName() {
+            let playerElement = document.querySelectorAll('.name');
+            playerElement.forEach(element => {
+                element.remove();
+            });
+            
+        }
+        return { playerName, sign, appenderName, removeName}
     };
 
     let theGame = {
         board: [],
-        playerX: playerFactory('Matt', 'X'),
+        playerX: playerFactory('Chirs', 'X'),
         playerO: playerFactory('Scott', 'O'),
     }
 
@@ -13,7 +27,8 @@ const gameInit = (function(){
 
     function displayBoard() {
         let grid = document.querySelector(".grid");
-
+        theGame.playerX.appenderName();
+        theGame.playerO.appenderName();
         for (i = 0; i < 9; i++) {
             theGame.board[i] = null;
             let boxElement = document.createElement('div');
@@ -29,6 +44,8 @@ const gameInit = (function(){
         cellList.forEach(cell => {
            cell.remove();
         });
+        theGame.playerX.removeName();
+        theGame.playerO.removeName();
         displayBoard();
     }
     return {theGame, currentPlayer, clearBoard}
@@ -45,8 +62,6 @@ const gaming = (function(){
     function markEntry(c) {
         let value = c.getAttribute('id')[3];
 
-        console.log(gameInit.theGame.board[value]);
-
         function switchPlayer(){
             if (gameInit.currentPlayer === gameInit.theGame.playerX) {
                 gameInit.currentPlayer = gameInit.theGame.playerO;
@@ -58,17 +73,17 @@ const gaming = (function(){
         if (!gameInit.theGame.board[value]) {
             gameInit.theGame.board[value] = gameInit.currentPlayer.sign;
             c.append(gameInit.currentPlayer.sign);
-            console.log(c);
+
             setTimeout(function() { 
                 winCheck();
                 tieCheck();
                 switchPlayer();
             }, 300);
             
-        } else {
-        console.log('cannot')
         }
     }
+
+    const winPopUp = document.querySelector('.winPopUp');
 
     function tieCheck() {
         let tie = true;
@@ -80,7 +95,11 @@ const gaming = (function(){
             }
         });
         if (tie) {
-            alert('tie');
+            const tiePopUp = document.querySelector('.tiePopUp');
+            tiePopUp.style.display = 'flex';
+            setTimeout(() => {
+                tiePopUp.style.display = 'none';
+            }, 2000);
             gameInit.clearBoard();
             gamePlay();
         }
@@ -99,10 +118,16 @@ const gaming = (function(){
             || (board[3] === board[4] && board[3] === board[5] && (board[3] && board[4] && board[5]))
             || (board[6] === board[7] && board[6] === board[8] && (board[6] && board[7] && board[8]))
         ){
-
-                alert(`${gameInit.currentPlayer.playerName} for ${gameInit.currentPlayer.sign} WINS!!`);
-                gameInit.clearBoard();
-                gamePlay(); 
+            const winDiv = document.createElement('div');
+            winDiv.append(`${gameInit.currentPlayer.playerName} for ${gameInit.currentPlayer.sign} WINS!!`)
+            winPopUp.appendChild(winDiv);
+            winPopUp.style.display = 'flex';
+            setTimeout(function(){
+                winPopUp.style.display = 'none';
+                winPopUp.removeChild(winDiv);
+            },2000);
+            gameInit.clearBoard();
+            gamePlay(); 
 
         }
     };

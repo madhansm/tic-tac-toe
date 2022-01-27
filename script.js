@@ -5,8 +5,8 @@ const gameInit = (function(){
 
     let theGame = {
         board: [],
-        playerX: playerFactory('Matt', 'x'),
-        playerO: playerFactory('Scott', 'o'),
+        playerX: playerFactory('Matt', 'X'),
+        playerO: playerFactory('Scott', 'O'),
     }
 
     let currentPlayer = theGame.playerX;
@@ -46,18 +46,25 @@ const gaming = (function(){
         let value = c.getAttribute('id')[3];
 
         console.log(gameInit.theGame.board[value]);
-    // entry check
-        if (!gameInit.theGame.board[value]) {
-            gameInit.theGame.board[value] = gameInit.currentPlayer.sign;
-            c.append(gameInit.currentPlayer.sign);
-            console.log(c);
-            winCheck();
-            tieCheck();
+
+        function switchPlayer(){
             if (gameInit.currentPlayer === gameInit.theGame.playerX) {
                 gameInit.currentPlayer = gameInit.theGame.playerO;
             } else {
                 gameInit.currentPlayer = gameInit.theGame.playerX;
             }
+        }
+    // entry check
+        if (!gameInit.theGame.board[value]) {
+            gameInit.theGame.board[value] = gameInit.currentPlayer.sign;
+            c.append(gameInit.currentPlayer.sign);
+            console.log(c);
+            setTimeout(function() { 
+                winCheck();
+                tieCheck();
+                switchPlayer();
+            }, 300);
+            
         } else {
         console.log('cannot')
         }
@@ -73,8 +80,8 @@ const gaming = (function(){
             }
         });
         if (tie) {
-            console.log('tie');
-            clearBoard();
+            alert('tie');
+            gameInit.clearBoard();
             gamePlay();
         }
     }
@@ -92,9 +99,11 @@ const gaming = (function(){
             || (board[3] === board[4] && board[3] === board[5] && (board[3] && board[4] && board[5]))
             || (board[6] === board[7] && board[6] === board[8] && (board[6] && board[7] && board[8]))
         ){
-            console.log('win');
-            gameInit.clearBoard();
-            gamePlay();
+
+                alert(`${gameInit.currentPlayer.playerName} for ${gameInit.currentPlayer.sign} WINS!!`);
+                gameInit.clearBoard();
+                gamePlay(); 
+
         }
     };
     return {gamePlay}

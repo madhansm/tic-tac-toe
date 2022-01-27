@@ -1,19 +1,40 @@
+body {
+    background-color: black;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: lighter;
+    color: whitesmoke;
+    margin: 20px 0 40px 0;
+}
+
 .grid {
     display: flex;                      
-    flex-wrap: wrap;                    
-    gap: 8px;
-    justify-content: space-between;
+    flex-wrap: wrap;   
+    padding: 4px;                 
+    justify-content: space-around;
     align-items: center;
-    height: 170px;
-    width: 170px;
-    background-color: rgb(8, 188, 248);
+    height: 330px;
+    width: 330px;
+    border: 1px solid #1919A6;
+    border-radius: 10px;
     
   }
   .cell {
-    flex: 0 0 30%;
-    height: 50px;
-    background-color: white;
-    margin-bottom: 2px;
+    flex: 0 0 100px;
+    height: 100px;
+    font-size: 40px;
+    font-weight: lighter;
+    color: #ffff00;
+    background-color: black;
+    border: 1px solid #1919A6;
+    border-radius: 10px;
 
     display: flex;
     justify-content: center;

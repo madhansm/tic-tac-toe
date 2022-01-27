@@ -119,7 +119,7 @@ const gaming = (function(){
             || (board[6] === board[7] && board[6] === board[8] && (board[6] && board[7] && board[8]))
         ){
             const winDiv = document.createElement('div');
-            winDiv.append(`${gameInit.currentPlayer.playerName} for ${gameInit.currentPlayer.sign} WINS!!`)
+            winDiv.append(`${gameInit.currentPlayer.playerName} WINS!!`)
             winPopUp.appendChild(winDiv);
             winPopUp.style.display = 'flex';
             setTimeout(function(){
@@ -134,5 +134,25 @@ const gaming = (function(){
     return {gamePlay}
 })();
 
-gameInit.clearBoard();
-gaming.gamePlay();
+
+const playerInputOverlay = (function () {
+    function overlayRemove() {
+        function disableOverlay() {
+            document.querySelector('.overlay').style.display = 'none';
+            document.querySelector('.playerInput').style.display = 'flex';
+            document.querySelector('.grid').style.display = 'flex';
+        }
+        document.addEventListener('click', disableOverlay);
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                disableOverlay();
+            }
+        });
+        gameInit.clearBoard();
+        gaming.gamePlay();
+        // console.log(overlayElement);
+    }
+    return { overlayRemove }
+})();
+
+playerInputOverlay.overlayRemove();

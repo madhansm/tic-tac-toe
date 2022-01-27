@@ -14,8 +14,28 @@ h1 {
     margin: 20px 0 40px 0;
 }
 
-.playerInput {
+.overlay {
     display: flex;
+    justify-content: centers;
+}
+#startGame {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    /* top: 100px; */
+    /* left: 500px; */
+    height: 500px;
+    width: 400px;
+    color: #ffff00;
+    background-color: black;
+    border-style: none;
+    font-family: 'Press Start 2P';
+    font-size: 40px;
+}
+
+.playerInput {
+    display: none;
     margin: 20px 0 40px 0;
     width: 350px;
     justify-content: space-between;
@@ -52,7 +72,7 @@ h1 {
 }
 
 .grid {
-    display: flex;                      
+    display: none;                      
     flex-wrap: wrap;   
     padding: 4px;                 
     justify-content: space-around;
